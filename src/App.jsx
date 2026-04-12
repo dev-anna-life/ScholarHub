@@ -7,6 +7,8 @@ import Home from './pages/Home'
 import Navbar from './components/Navbar'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
+import Community from './pages/Community'
+import CommunityFeed from './pages/CommunityFeed'
 
 const noNavPages = ['/', '/login', '/signup', '/onboarding', '/forgot-password', '/reset-password']
 
@@ -25,6 +27,8 @@ function Layout() {
         <Route path="/feed" element={<Home />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/community" element={<Community />} />
+        <Route path="/community/:level" element={<CommunityFeed />} />
       </Routes>
     </>
   )

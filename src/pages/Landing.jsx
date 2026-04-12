@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 import { FiArrowRight, FiUsers, FiBookOpen, FiAward, FiZap, FiMenu, FiX } from "react-icons/fi"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -28,10 +29,10 @@ const steps = [
 ]
 
 const communities = [
-  { name: "JSS Community", members: "12K+", color: "bg-emerald-50 border-emerald-200", badge: "text-primary" },
-  { name: "SSS Community", members: "28K+", color: "bg-orange-50 border-orange-200", badge: "text-accent" },
-  { name: "University Hub", members: "54K+", color: "bg-blue-50 border-blue-200", badge: "text-blue-600" },
-  { name: "Postgrad Network", members: "8K+", color: "bg-purple-50 border-purple-200", badge: "text-purple-600" },
+  { id: 'jss', name: "JSS Community", members: "12K+", color: "bg-emerald-50 border-emerald-200", badge: "text-primary", desc: "Notes, gist & exam tips" },
+  { id: 'sss', name: "SSS Community", members: "28K+", color: "bg-orange-50 border-orange-200", badge: "text-accent", desc: "WAEC, JAMB & NECO prep" },
+  { id: 'university', name: "University Hub", members: "54K+", color: "bg-blue-50 border-blue-200", badge: "text-blue-600", desc: "Lecture notes & campus life" },
+  { id: 'postgrad', name: "Postgrad Network", members: "8K+", color: "bg-purple-50 border-purple-200", badge: "text-purple-600", desc: "Research & scholarships" },
 ]
 
 const navLinks = [
@@ -42,10 +43,12 @@ const navLinks = [
   { label: "Leaderboard", id: "leaderboard" },
 ]
 
+
 function Landing() {
   const revealRefs = useRef([])
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -233,18 +236,22 @@ function Landing() {
         <div className="max-w-5xl mx-auto">
           <div ref={addRef} className="reveal text-center mb-14">
             <h2 className="text-4xl font-extrabold text-dark mb-3">Find your community</h2>
-            <p className="text-gray-400 max-w-xl mx-auto">Every student has a space on ScholarHub — from JSS to Postgrad.</p>
+            <p className="text-gray-400 max-w-xl mx-auto">Every student has a space on ScholarHub from JSS to Postgrad.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {communities.map(c => (
               <div
                 ref={addRef}
                 key={c.name}
+                onClick={() => navigate(`/community/${c.id}`)}
                 className={`reveal border rounded-2xl p-6 text-center hover:shadow-lg hover:-translate-y-2 transition-all duration-300 cursor-pointer ${c.color}`}
               >
-                <p className={`text-3xl font-extrabold mb-1 ${c.badge}`}>{c.members}</p>
+                <p className={`text-2xl font-extrabold mb-1 ${c.badge}`}>{c.members}</p>
                 <p className="font-semibold text-dark text-sm mt-1">{c.name}</p>
-                <p className="text-xs text-gray-400 mt-1">members</p>
+                <p className="text-xs text-gray-400 mt-1 mb-3">{c.desc}</p>
+                <span className={`text-xs font-semibold px-3 py-1 rounded-full ${c.badge} border ${c.color}`}>
+                  Enter →
+                </span>
               </div>
             ))}
           </div>

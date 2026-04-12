@@ -2,11 +2,13 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Link, useLocation } from "react-router-dom"
-import { FiHome, FiUser, FiAward, FiSettings, FiMenu, FiX } from "react-icons/fi"
 import { MdLeaderboard } from "react-icons/md"
+import { HiUserGroup } from "react-icons/hi"
+import { FiHome, FiUser, FiAward, FiSettings, FiMenu, FiX, FiUsers } from "react-icons/fi"
 
 const navLinks = [
   { label: 'Home', icon: FiHome, path: '/feed' },
+  { label: 'Community', icon: HiUserGroup, path: '/community' },
   { label: 'Profile', icon: FiUser, path: '/profile' },
   { label: 'Leaderboard', icon: MdLeaderboard, path: '/leaderboard' },
   { label: 'Achievements', icon: FiAward, path: '/achievements' },
