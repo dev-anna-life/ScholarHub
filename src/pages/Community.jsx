@@ -181,19 +181,6 @@ function Community() {
                         </motion.div>
                     ))}
                 </div>
-
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.6 }}
-                    className="mt-8 bg-white rounded-2xl border border-gray-100 p-6 flex items-center justify-between"
-                >
-                    <div>
-                        <p className="font-bold text-dark mb-1">Not sure which community fits you?</p>
-                        <p className="text-sm text-gray-400">You can explore all communities and post in any of them.</p>
-                    </div>
-                    <FiTrendingUp size={32} className="text-primary flex-shrink-0" />
-                </motion.div>
             </div>
         </div>
     )

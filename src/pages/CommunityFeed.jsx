@@ -125,6 +125,7 @@ function CommunityFeed() {
     const [postSuccess, setPostSuccess] = useState(false)
     const [postError, setPostError] = useState('')
     const [joined, setJoined] = useState(false)
+    const [showComments, setShowComments] = useState(null)
 
     const toggleLike = (id) => {
         setPosts(prev => prev.map(p =>
@@ -158,6 +159,19 @@ function CommunityFeed() {
     const filteredPosts = posts.filter(p =>
         activeCategory === 'All' || p.category === activeCategory
     )
+
+    const handleShare = (post) => {
+        if (navigator.share) {
+            navigator.share({
+                title: post.title,
+                text: post.content,
+                url: window.location.href,
+            })
+        } else {
+            navigator.clipboard.writeText(window.location.href)
+            alert('Link copied to clipboard!')
+        }
+    }
 
     return (
         <div className="min-h-screen bg-light md:pl-56 pt-14 md:pt-0">
@@ -271,11 +285,18 @@ function CommunityFeed() {
                                         <FiHeart size={16} className={post.liked ? 'fill-current' : ''} />
                                         {post.likes}
                                     </button>
-                                    <button className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-primary transition-colors duration-200">
+                                    <button
+                                        onClick={() => setShowComments(showComments === post.id ? null : post.id)}
+                                        className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-primary transition-colors duration-200"
+                                    >
                                         <FiMessageCircle size={16} />
                                         {post.comments}
                                     </button>
-                                    <button className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-primary transition-colors duration-200">
+
+                                    <button
+                                        onClick={() => handleShare(post)}
+                                        className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-primary transition-colors duration-200"
+                                    >
                                         <FiShare2 size={16} />
                                         Share
                                     </button>
@@ -286,6 +307,29 @@ function CommunityFeed() {
                                         <FiBookmark size={16} className={post.saved ? 'fill-current' : ''} />
                                     </button>
                                 </div>
+                                {showComments === post.id && (
+                                    <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: 'auto' }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className="mt-4 pt-4 border-t border-gray-100"
+                                    >
+                                        <div className="flex gap-2 mb-3">
+                                            <div
+                                                className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+                                                style={{ backgroundColor: community.accentColor }}
+                                            >
+                                                {user.name?.charAt(0) || 'S'}
+                                            </div>
+                                            <input
+                                                type="text"
+                                                placeholder="Write a comment..."
+                                                className="flex-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:border-primary transition"
+                                            />
+                                        </div>
+                                        <p className="text-xs text-gray-400 text-center">Comments coming soon.</p>
+                                    </motion.div>
+                                )}
                             </motion.div>
                         ))}
                     </div>
