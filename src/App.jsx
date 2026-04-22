@@ -9,8 +9,10 @@ import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import Community from './pages/Community'
 import CommunityFeed from './pages/CommunityFeed'
+import Profile from './pages/Profile'
+import Admin from './pages/Admin'
 
-const noNavPages = ['/', '/login', '/signup', '/onboarding', '/forgot-password', '/reset-password']
+const noNavPages = ['/', '/login', '/signup', '/onboarding', '/forgot-password', '/reset-password', '/admin']
 
 function Layout() {
   const location = useLocation()
@@ -29,6 +31,8 @@ function Layout() {
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/community" element={<Community />} />
         <Route path="/community/:level" element={<CommunityFeed />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/admin" element={<Admin />} />a
       </Routes>
     </>
   )
